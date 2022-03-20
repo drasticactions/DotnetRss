@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32314.265
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetRss.Core", "DotnetRss.Core\DotnetRss.Core.csproj", "{E1499066-06DD-442B-8E52-717C08DD882C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetRss.Core", "DotnetRss.Core\DotnetRss.Core.csproj", "{E1499066-06DD-442B-8E52-717C08DD882C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetRss.Tests", "DotnetRss.Tests\DotnetRss.Tests.csproj", "{D51CDF12-749F-4C5B-A93A-7F6F94E84C7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E1499066-06DD-442B-8E52-717C08DD882C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1499066-06DD-442B-8E52-717C08DD882C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1499066-06DD-442B-8E52-717C08DD882C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D51CDF12-749F-4C5B-A93A-7F6F94E84C7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D51CDF12-749F-4C5B-A93A-7F6F94E84C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D51CDF12-749F-4C5B-A93A-7F6F94E84C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D51CDF12-749F-4C5B-A93A-7F6F94E84C7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

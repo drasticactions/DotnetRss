@@ -12,7 +12,8 @@ namespace DotnetRss.Core.ViewModels
         private string html;
         private FeedItem? feedItem;
 
-        public RssFeedArticleViewModel(IRssWebview webview, IServiceProvider services) : base(services)
+        public RssFeedArticleViewModel(IRssWebview webview, IServiceProvider services)
+            : base(services)
         {
             this.webview = webview;
             this.html = string.Empty;

@@ -8,4 +8,16 @@
 	<ItemGroup>
 		<AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
 	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="AngleSharp" Version="0.16.1" />
+	  <PackageReference Include="CodeHollow.FeedReader" Version="1.2.4" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+	  <PackageReference Include="SmartReader" Version="0.8.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Actions\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\DotnetRss.Tests\DotnetRss.Tests.csproj" />
+	</ItemGroup>
 </Project>
