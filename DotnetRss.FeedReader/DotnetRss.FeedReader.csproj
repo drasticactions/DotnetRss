@@ -2,24 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
-    <IsPackable>false</IsPackable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.2.7" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.2.7" />
-    <PackageReference Include="coverlet.collector" Version="3.1.0" />
-  </ItemGroup>
-
 	<ItemGroup>
 		<AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
 	</ItemGroup>
-
+	<ItemGroup>
+		<PackageReference Include="AngleSharp" Version="0.16.1" />
+		<PackageReference Include="CodeHollow.FeedReader" Version="1.2.4" />
+	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\DotnetRss.Core\DotnetRss.Core.csproj" />
 	</ItemGroup>
-
 </Project>

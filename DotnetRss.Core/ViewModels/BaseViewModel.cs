@@ -5,8 +5,6 @@
 using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using AngleSharp.Html.Parser;
-using CodeHollow.FeedReader;
 
 namespace DotnetRss.Core.ViewModels
 {
@@ -17,8 +15,6 @@ namespace DotnetRss.Core.ViewModels
     {
         private bool isBusy;
         private string title = string.Empty;
-        private HttpClient client;
-        private HtmlParser parser;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseViewModel"/> class.
@@ -26,13 +22,12 @@ namespace DotnetRss.Core.ViewModels
         /// <param name="services"><see cref="IServiceProvider"/>.</param>
         public BaseViewModel(IServiceProvider services!!)
         {
-            this.client = new HttpClient();
-            this.parser = new HtmlParser();
             this.Services = services;
             this.Templates = services.GetService(typeof(ITemplateService)) as ITemplateService ?? throw new NullReferenceException(nameof(ITemplateService));
             this.Dispatcher = services.GetService(typeof(IAppDispatcher)) as IAppDispatcher ?? throw new NullReferenceException(nameof(IAppDispatcher));
             this.ErrorHandler = services.GetService(typeof(IErrorHandlerService)) as IErrorHandlerService ?? throw new NullReferenceException(nameof(IErrorHandlerService));
             this.Context = services.GetService(typeof(IDatabaseContext)) as IDatabaseContext ?? throw new NullReferenceException(nameof(IDatabaseContext));
+            this.Rss = services.GetService(typeof(IRssService)) as IRssService ?? throw new NullReferenceException(nameof(IRssService));
         }
 
         /// <inheritdoc/>
@@ -98,6 +93,11 @@ namespace DotnetRss.Core.ViewModels
         internal ITemplateService Templates { get; }
 
         /// <summary>
+        /// Gets the Rss context.
+        /// </summary>
+        internal IRssService Rss { get; }
+
+        /// <summary>
         /// Called on VM Load.
         /// </summary>
         /// <returns><see cref="Task"/>.</returns>
@@ -128,37 +128,25 @@ namespace DotnetRss.Core.ViewModels
         {
             try
             {
-                var feed = await FeedReader.ReadAsync(feedUri);
+                (var feed, var feedListItems) = await this.Rss.ReadFeedAsync(feedUri);
                 var item = this.Context.GetFeedListItem(new Uri(feedUri));
                 if (item is null)
                 {
-                    item = new FeedListItem(feed, feedUri);
+                    item = feed;
                 }
 
-                if (item.ImageCache is null && item.ImageUri is not null)
+                if (item is null || feedListItems is null)
                 {
-                    item.ImageCache = await this.client.GetByteArrayAsync(item.ImageUri);
-                }
-                else if (item.ImageCache is null)
-                {
-                    item.ImageCache = GetPlaceholderIcon();
+                    // TODO: Handle error. It shouldn't be null.
+                    return null;
                 }
 
                 var result = this.Context.AddOrUpdateFeedListItem(item);
 
-                foreach (var feedItem in feed.Items)
+                foreach (var feedItem in feedListItems)
                 {
-                    using var document = await this.parser.ParseDocumentAsync(feedItem.Content);
-                    var image = document.QuerySelector("img");
-                    var imageUrl = string.Empty;
-                    if (image is not null)
-                    {
-                        imageUrl = image.GetAttribute("src");
-                    }
-
-                    var fd = new FeedItem(item, feedItem, imageUrl);
-                    this.Context.AddOrUpdateFeedItem(fd);
-                    this.SendFeedUpdateRequest(item, fd);
+                    this.Context.AddOrUpdateFeedItem(feedItem);
+                    this.SendFeedUpdateRequest(item, feedItem);
                 }
 
                 this.SendFeedListUpdateRequest(item);

@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Templates\feeditem.html.hbs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Handlebars.Net" Version="2.1.1-beta-1" />
+    <PackageReference Include="SmartReader" Version="0.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotnetRss.Core\DotnetRss.Core.csproj" />
+  </ItemGroup>
+	<ItemGroup>
+		<AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="Templates\feeditem.html.hbs" />
+	</ItemGroup>
+</Project>

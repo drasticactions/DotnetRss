@@ -14,6 +14,6 @@ namespace DotnetRss.Core
         /// </summary>
         /// <param name="item">FeedItem.</param>
         /// <returns>Html String.</returns>
-        public string RenderFeedItem(FeedItem item);
+        public Task<string> RenderFeedItemAsync(FeedItem item);
     }
 }

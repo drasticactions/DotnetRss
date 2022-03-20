@@ -4,8 +4,6 @@
 
 using System.Collections.ObjectModel;
 using System.Reflection;
-using AngleSharp.Html.Parser;
-using CodeHollow.FeedReader;
 
 namespace DotnetRss.Core.ViewModels
 {

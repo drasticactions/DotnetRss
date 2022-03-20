@@ -2,8 +2,6 @@
 // Copyright (c) Drastic Actions. All rights reserved.
 // </copyright>
 
-using CodeHollow.FeedReader;
-
 namespace DotnetRss.Core
 {
     /// <summary>
@@ -16,23 +14,6 @@ namespace DotnetRss.Core
         /// </summary>
         public FeedListItem()
         {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FeedListItem"/> class.
-        /// </summary>
-        /// <param name="feed"><see cref="Feed"/>.</param>
-        /// <param name="feedUri">Original Feed Uri.</param>
-        public FeedListItem(Feed feed, string feedUri)
-        {
-            this.Name = feed.Title;
-            this.Uri = new Uri(feedUri);
-            this.Link = feed.Link;
-            this.ImageUri = string.IsNullOrEmpty(feed.ImageUrl) ? null : new Uri(feed.ImageUrl);
-            this.Description = feed.Description;
-            this.Language = feed.Language;
-            this.LastUpdatedDate = feed.LastUpdatedDate;
-            this.LastUpdatedDateString = feed.LastUpdatedDateString;
         }
 
         /// <summary>

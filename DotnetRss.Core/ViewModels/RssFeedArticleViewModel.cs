@@ -61,17 +61,17 @@ namespace DotnetRss.Core.ViewModels
             }
 
             this.Context.AddOrUpdateFeedItem(this.FeedItem);
-            this.RenderHtml();
+            await this.RenderHtmlAsync();
         }
 
-        private void RenderHtml()
+        private async Task RenderHtmlAsync()
         {
             if (this.feedItem is null)
             {
                 return;
             }
 
-            this.Html = this.Templates.RenderFeedItem(this.feedItem);
+            this.Html = await this.Templates.RenderFeedItemAsync(this.feedItem);
             this.webview.SetSource(this.Html);
         }
     }

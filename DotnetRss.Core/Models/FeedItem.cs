@@ -17,26 +17,6 @@ namespace DotnetRss.Core
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FeedItem"/> class.
-        /// </summary>
-        /// <param name="feedListItem"><see cref="FeedListItem"/>.</param>
-        /// <param name="item"><see cref="CodeHollow.FeedReader.FeedItem"/>.</param>
-        /// <param name="imageUrl">Image Url.</param>
-        public FeedItem(FeedListItem feedListItem, CodeHollow.FeedReader.FeedItem item, string? imageUrl = "")
-        {
-            this.RssId = item.Id;
-            this.FeedListItemId = feedListItem.Id;
-            this.Title = item.Title;
-            this.Link = item.Link;
-            this.Description = item.Description;
-            this.PublishingDate = item.PublishingDate;
-            this.Author = item.Author;
-            this.Content = item.Content;
-            this.PublishingDateString = item.PublishingDateString;
-            this.ImageUrl = imageUrl;
-        }
-
-        /// <summary>
         /// Gets or sets the id.
         /// </summary>
         public int Id { get; set; }
