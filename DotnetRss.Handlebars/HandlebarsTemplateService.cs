@@ -40,7 +40,7 @@ namespace DotnetRss.Core
                 return string.Empty;
             }
 
-            var resourceName = "DotnetRss." + fileName;
+            var resourceName = "DotnetRss.Handlebars." + fileName;
 
             string? resource = null;
             using (Stream? stream = assembly.GetManifestResourceStream(resourceName))

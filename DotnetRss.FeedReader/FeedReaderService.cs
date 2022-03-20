@@ -25,7 +25,7 @@ namespace DotnetRss.Core
         }
 
         /// <inheritdoc/>
-        public async Task<(FeedListItem?, IList<FeedItem>?)> ReadFeedAsync(string feedUri, CancellationToken? token = default)
+        public async Task<(FeedListItem? FeedList, IList<FeedItem>? FeedItemList)> ReadFeedAsync(string feedUri, CancellationToken? token = default)
         {
             var cancelationToken = token ?? CancellationToken.None;
             var feed = await FeedReader.ReadAsync(feedUri, cancelationToken);
