@@ -54,14 +54,8 @@ namespace DotnetRss.Core.ViewModels
             }
 
             this.FeedItem = item;
-            if (this.FeedItem.Link is not null)
-            {
-                SmartReader.Article article = await SmartReader.Reader.ParseArticleAsync(this.FeedItem.Link);
-                this.FeedItem.Html = article.Content;
-            }
-
-            this.Context.AddOrUpdateFeedItem(this.FeedItem);
             await this.RenderHtmlAsync();
+            this.Context.AddOrUpdateFeedItem(this.FeedItem);
         }
 
         private async Task RenderHtmlAsync()

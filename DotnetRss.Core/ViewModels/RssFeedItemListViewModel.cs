@@ -17,10 +17,9 @@ namespace DotnetRss.Core.ViewModels
         /// Initializes a new instance of the <see cref="RssFeedItemListViewModel"/> class.
         /// </summary>
         /// <param name="services"><see cref="IServiceProvider"/>.</param>
-        public RssFeedItemListViewModel(IServiceProvider services, FeedListItem? feedListItem)
+        public RssFeedItemListViewModel(IServiceProvider services)
             : base(services)
         {
-            this.feedListItem = feedListItem;
             this.FeedItems = new ObservableCollection<FeedItem>();
             this.GetCachedFeedItemsCommand = new AsyncCommand<FeedListItem>(
             async (item) => await this.GetCachedFeedItems(item),
@@ -67,7 +66,7 @@ namespace DotnetRss.Core.ViewModels
         {
             this.feedListItem = item;
             this.FeedItems.Clear();
-            var feedItems = this.Context.GetFeedItems(this.feedListItem).OrderBy(n => n.PublishingDate);
+            var feedItems = this.Context.GetFeedItems(this.feedListItem).OrderByDescending(n => n.PublishingDate).ToList();
             if (feedItems.Any())
             {
                 foreach (var feedItem in feedItems)
@@ -79,11 +78,13 @@ namespace DotnetRss.Core.ViewModels
             {
                 await this.AddOrUpdateNewFeedListItemAsync(item.Uri?.ToString() ?? throw new ArgumentNullException(nameof(item.Uri)));
             }
+
+            this.OnPropertyChanged(nameof(FeedItems));
         }
 
         private void RssFeedItemListViewModel_OnFeedItemUpdated(object? sender, FeedItemUpdatedEventArgs e)
         {
-            if (this.feedListItem != e.FeedListItem)
+            if (this.feedListItem?.Id != e.FeedListItem.Id)
             {
                 this.feedListItem = e.FeedListItem;
                 this.FeedItems.Clear();

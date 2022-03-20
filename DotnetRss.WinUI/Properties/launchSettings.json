@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DotnetRss.WinUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "DotnetRss.WinUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

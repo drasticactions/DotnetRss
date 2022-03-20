@@ -3,6 +3,7 @@
 // </copyright>
 
 using LiteDB;
+using System.Reflection;
 
 namespace DotnetRss.Core
 {
@@ -22,9 +23,9 @@ namespace DotnetRss.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="LiteDBDatabaseContext"/> class.
         /// </summary>
-        public LiteDBDatabaseContext()
+        public LiteDBDatabaseContext(string databasePath = "")
         {
-            this.OnConfiguring();
+            this.OnConfiguring(databasePath);
         }
 
         /// <summary>
@@ -93,8 +94,20 @@ namespace DotnetRss.Core
 
         private void OnConfiguring(string databasePath = "")
         {
+            databasePath = string.IsNullOrEmpty(databasePath) ? this.GetLocalPath() : databasePath;
             this.databasePath = Path.Combine(databasePath, DatabaseName);
             this.db = new LiteDatabase(this.databasePath);
+        }
+
+        private string GetLocalPath()
+        {
+            var location = Assembly.GetExecutingAssembly()?.Location ?? string.Empty;
+            if (string.IsNullOrEmpty(location))
+            {
+                return string.Empty;
+            }
+
+            return Path.GetDirectoryName(location) ?? string.Empty;
         }
     }
 }

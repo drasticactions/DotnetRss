@@ -145,6 +145,7 @@ namespace DotnetRss.Core.ViewModels
 
                 foreach (var feedItem in feedListItems)
                 {
+                    feedItem.FeedListItemId = item.Id;
                     this.Context.AddOrUpdateFeedItem(feedItem);
                     this.SendFeedUpdateRequest(item, feedItem);
                 }
