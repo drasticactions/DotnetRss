@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<TargetFrameworks>net6.0-maccatalyst;net6.0-ios</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotnetRss.Core\DotnetRss.Core.csproj" />
+    <ProjectReference Include="..\DotnetRss.FeedReader\DotnetRss.FeedReader.csproj" />
+    <ProjectReference Include="..\DotnetRss.Handlebars\DotnetRss.Handlebars.csproj" />
+    <ProjectReference Include="..\DotnetRss.LiteDB\DotnetRss.LiteDB.csproj" />
+  </ItemGroup>
+
+</Project>
