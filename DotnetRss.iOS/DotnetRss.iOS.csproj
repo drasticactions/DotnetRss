@@ -11,5 +11,9 @@
     <ProjectReference Include="..\DotnetRss.FeedReader\DotnetRss.FeedReader.csproj" />
     <ProjectReference Include="..\DotnetRss.Handlebars\DotnetRss.Handlebars.csproj" />
     <ProjectReference Include="..\DotnetRss.LiteDB\DotnetRss.LiteDB.csproj" />
+    <ProjectReference Include="..\DotnetRss.MaciOS\DotnetRss.MaciOS.csproj" />
   </ItemGroup>
+	<ItemGroup>
+		<AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+	</ItemGroup>
 </Project>

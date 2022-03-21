@@ -14,4 +14,7 @@
     <ProjectReference Include="..\DotnetRss.LiteDB\DotnetRss.LiteDB.csproj" />
     <ProjectReference Include="..\DotnetRss.MaciOS\DotnetRss.MaciOS.csproj" />
   </ItemGroup>
+	<ItemGroup>
+		<AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+	</ItemGroup>
 </Project>
