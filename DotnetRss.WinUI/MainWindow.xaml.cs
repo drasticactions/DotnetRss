@@ -1,21 +1,24 @@
-﻿using DotnetRss.Core;
+﻿// <copyright file="MainWindow.xaml.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
+using DotnetRss.Core;
 using DotnetRss.Core.Tools;
 using DotnetRss.Core.ViewModels;
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace DotnetRss.WinUI
 {
     /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
+    /// The Main Window.
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
             this.InitializeComponent();
@@ -28,21 +31,19 @@ namespace DotnetRss.WinUI
             this.ArticleList.SelectionChanged += this.ArticleList_SelectionChanged;
         }
 
-        private async void ArticleList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var item = e.AddedItems.FirstOrDefault() as FeedItem;
-            if (item is null)
-            {
-                return;
-            }
-
-            await this.FeedArticleVM.FeedItemSelectedCommand.ExecuteAsync(item);
-        }
-
+        /// <summary>
+        /// Gets the Feed List VM.
+        /// </summary>
         public RssFeedListViewModel FeedListVM { get; private set; }
 
+        /// <summary>
+        /// Gets the Feed Item List VM.
+        /// </summary>
         public RssFeedItemListViewModel FeedItemListVM { get; private set; }
 
+        /// <summary>
+        /// Gets the Feed Article FM.
+        /// </summary>
         public RssFeedArticleViewModel FeedArticleVM { get; private set; }
 
         private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -127,6 +128,17 @@ namespace DotnetRss.WinUI
             }
 
             prompt.TextBoxInput.Text = string.Empty;
+        }
+
+        private async void ArticleList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = e.AddedItems.FirstOrDefault() as FeedItem;
+            if (item is null)
+            {
+                return;
+            }
+
+            await this.FeedArticleVM.FeedItemSelectedCommand.ExecuteAsync(item);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace DotnetRss.Core.ViewModels
     /// <summary>
     /// Rss Feed List View Model.
     /// </summary>
-    public class RssFeedListViewModel : BaseViewModel
+    public class RssFeedListViewModel : RssFeedBaseViewModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RssFeedListViewModel"/> class.

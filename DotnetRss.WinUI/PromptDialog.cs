@@ -14,7 +14,6 @@ namespace DotnetRss.WinUI
             Title = "Add Feed";
             PrimaryButtonText = "Ok";
             SecondaryButtonText = "Cancel";
-
             Initialize();
         }
 

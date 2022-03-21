@@ -1,17 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="RssFeedArticleViewModel.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
 
 namespace DotnetRss.Core.ViewModels
 {
+    /// <summary>
+    /// Rss Feed Article View Model.
+    /// </summary>
     public class RssFeedArticleViewModel : BaseViewModel
     {
         private IRssWebview webview;
         private string html;
         private FeedItem? feedItem;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RssFeedArticleViewModel"/> class.
+        /// </summary>
+        /// <param name="webview">Rss Webview.</param>
+        /// <param name="services"><see cref="IServiceProvider"/>.</param>
         public RssFeedArticleViewModel(IRssWebview webview, IServiceProvider services)
             : base(services)
         {

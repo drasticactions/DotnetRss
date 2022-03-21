@@ -9,7 +9,7 @@ namespace DotnetRss.Core.ViewModels
     /// <summary>
     /// Rss Feed Item List View model.
     /// </summary>
-    public class RssFeedItemListViewModel : BaseViewModel
+    public class RssFeedItemListViewModel : RssFeedBaseViewModel
     {
         private FeedListItem? feedListItem;
 
