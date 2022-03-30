@@ -17,9 +17,10 @@ namespace DotnetRss.Core.ViewModels
         /// Initializes a new instance of the <see cref="RssFeedItemListViewModel"/> class.
         /// </summary>
         /// <param name="services"><see cref="IServiceProvider"/>.</param>
-        public RssFeedItemListViewModel(IServiceProvider services)
+        public RssFeedItemListViewModel(IServiceProvider services, FeedListItem? item = null)
             : base(services)
         {
+            this.feedListItem = item;
             this.FeedItems = new ObservableCollection<FeedItem>();
             this.GetCachedFeedItemsCommand = new AsyncCommand<FeedListItem>(
             async (item) => await this.GetCachedFeedItems(item),
@@ -65,6 +66,7 @@ namespace DotnetRss.Core.ViewModels
         private async Task GetCachedFeedItems(FeedListItem item!!)
         {
             this.feedListItem = item;
+            this.Title = item.Name ?? string.Empty;
             this.FeedItems.Clear();
             var feedItems = this.Context.GetFeedItems(this.feedListItem).OrderByDescending(n => n.PublishingDate).ToList();
             if (feedItems.Any())

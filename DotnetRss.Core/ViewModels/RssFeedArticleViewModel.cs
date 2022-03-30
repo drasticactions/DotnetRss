@@ -18,9 +18,11 @@ namespace DotnetRss.Core.ViewModels
         /// </summary>
         /// <param name="webview">Rss Webview.</param>
         /// <param name="services"><see cref="IServiceProvider"/>.</param>
-        public RssFeedArticleViewModel(IRssWebview webview, IServiceProvider services)
+        /// <param name="item">Feed Item.</param>
+        public RssFeedArticleViewModel(IRssWebview webview, IServiceProvider services, FeedItem? item = null)
             : base(services)
         {
+            this.feedItem = item;
             this.webview = webview;
             this.html = string.Empty;
             this.FeedItemSelectedCommand = new AsyncCommand<FeedItem>(
@@ -52,6 +54,12 @@ namespace DotnetRss.Core.ViewModels
         /// </summary>
         public AsyncCommand<FeedItem> FeedItemSelectedCommand { get; private set; }
 
+        public override async Task OnLoad()
+        {
+            await base.OnLoad();
+            await this.UpdateFeedItem(this.feedItem);
+        }
+
         private async Task UpdateFeedItem(FeedItem? item)
         {
             if (item is null)
@@ -60,6 +68,7 @@ namespace DotnetRss.Core.ViewModels
             }
 
             this.FeedItem = item;
+            this.Title = this.FeedItem.Title ?? string.Empty;
             await this.RenderHtmlAsync();
             this.Context.AddOrUpdateFeedItem(this.FeedItem);
         }
