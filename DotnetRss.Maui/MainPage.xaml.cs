@@ -43,4 +43,9 @@ public partial class MainPage : BasePage
             await this.vm.AddOrUpdateNewFeedListItemAsync(result);
         }
     }
+
+    private void NewWindowButton_Clicked(object sender, EventArgs e)
+    {
+        App.Current?.OpenWindow(new Window(new NavigationPage(new MainPage(this.ServiceProvider))));
+    }
 }

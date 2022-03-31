@@ -4,6 +4,14 @@
              xmlns:local="clr-namespace:DotnetRss.Maui"
              Title="DotnetRss"
              x:Class="DotnetRss.Maui.MainPage">
+    <local:BasePage.ToolbarItems>
+        <ToolbarItem
+            Order="Secondary" 
+            Text="Open in New Window"
+            x:Name="NewWindowButton"
+            Clicked="NewWindowButton_Clicked"
+            />
+    </local:BasePage.ToolbarItems>
     <Grid RowDefinitions="*, Auto" RowSpacing="10">
         <RefreshView RefreshColor="Green">
             <CollectionView
