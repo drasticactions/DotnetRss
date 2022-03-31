@@ -4,6 +4,14 @@
              x:Class="DotnetRss.Maui.FeedListPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:DotnetRss.Maui">
+    <local:BasePage.ToolbarItems>
+        <ToolbarItem
+            Order="Secondary" 
+            Text="Open in New Window"
+            x:Name="NewWindowButton"
+            Clicked="NewWindowButton_Clicked"
+            />
+    </local:BasePage.ToolbarItems>
     <RefreshView RefreshColor="Green">
         <CollectionView  x:Name="FeedItemCollection"
                          SelectionMode="Single"

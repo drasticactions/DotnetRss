@@ -38,4 +38,9 @@ public partial class FeedListPage : BasePage
             this.Navigation.PushAsync(new FeedContentPage(item, this.ServiceProvider)).FireAndForgetSafeAsync();
         }
     }
+
+    private void NewWindowButton_Clicked(object sender, EventArgs e)
+    {
+        App.Current?.OpenWindow(new Window(new NavigationPage(new FeedListPage(this.item, this.ServiceProvider))));
+    }
 }
