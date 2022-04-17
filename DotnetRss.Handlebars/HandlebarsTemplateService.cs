@@ -7,6 +7,9 @@ using HandlebarsDotNet;
 
 namespace DotnetRss.Core
 {
+    /// <summary>
+    /// Handlebars Template Service.
+    /// </summary>
     public class HandlebarsTemplateService : ITemplateService
     {
         private HandlebarsTemplate<object, object> feedItemTemplate;
