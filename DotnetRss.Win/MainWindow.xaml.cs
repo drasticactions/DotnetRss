@@ -8,6 +8,7 @@ using DotnetRss.Core.ViewModels;
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace DotnetRss.Win
 {
@@ -22,6 +23,8 @@ namespace DotnetRss.Win
         public MainWindow()
         {
             this.InitializeComponent();
+            this.ExtendsContentIntoTitleBar = true;
+            this.SetTitleBar(this.AppTitleBar);
             this.FeedListVM = Ioc.Default.ResolveWith<RssFeedListViewModel>();
             this.FeedItemListVM = Ioc.Default.ResolveWith<RssFeedItemListViewModel>();
             this.FeedArticleVM = Ioc.Default.ResolveWith<RssFeedArticleViewModel>(this.LocalRssWebview);
@@ -139,6 +142,11 @@ namespace DotnetRss.Win
             }
 
             await this.FeedArticleVM.FeedItemSelectedCommand.ExecuteAsync(item);
+        }
+
+        private void RefreshFeedButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

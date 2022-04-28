@@ -70,6 +70,7 @@ namespace DotnetRss.Core.ViewModels
             this.FeedItem = item;
             this.Title = this.FeedItem.Title ?? string.Empty;
             await this.RenderHtmlAsync();
+            this.FeedItem.IsRead = true;
             this.Context.AddOrUpdateFeedItem(this.FeedItem);
         }
 

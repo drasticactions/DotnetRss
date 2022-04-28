@@ -116,5 +116,10 @@ namespace DotnetRss.Core
         /// Gets or sets a value indicating whether the feed is favorited.
         /// </summary>
         public bool IsFavorite { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the feed item has been read.
+        /// </summary>
+        public bool IsRead { get; set; }
     }
 }

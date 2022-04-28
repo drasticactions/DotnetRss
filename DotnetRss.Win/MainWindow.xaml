@@ -6,31 +6,62 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <NavigationView IsSettingsVisible="False"  x:Name="NavView">
-        <NavigationView.PaneFooter>
-            <StackPanel Orientation="Vertical" 
-                        HorizontalAlignment="Stretch">
-                <Button x:Name="NewFeedButton" Click="NewFeedButton_Click"  HorizontalAlignment="Stretch" Content="Add Feed"/>
-            </StackPanel>
-        </NavigationView.PaneFooter>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="34"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" x:Name="AppTitleBar" Grid.Row="0" Height="34">
+            <Image  Margin="8,0,0,0" Width="32" Height="32" Source="Assets/Images/favicon.ico" x:Name="AppIcon" />
+            <TextBlock x:Name="AppTitleTextBlock" Text="DotnetRss"
+                       Style="{StaticResource CaptionTextBlockStyle}"
+                       Margin="12,0,0,0" VerticalAlignment="Center" />
+        </StackPanel>
+        <NavigationView
+            IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False"
+            Grid.Row="1"
+            x:Name="NavView">
+            <NavigationView.PaneHeader>
+                <Grid Padding="0,5,0,0" HorizontalAlignment="Center" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Margin="0,0,10,0" x:Name="RefreshFeedButton" Grid.Column="1"  FontFamily="Segoe Fluent Icons" Click="RefreshFeedButton_Click" Content="" />
+                    <Button Margin="0,0,20,0" x:Name="NewFeedButton" Grid.Column="2" FontFamily="Segoe Fluent Icons" Click="NewFeedButton_Click" Content=""/>
+                </Grid>
+            </NavigationView.PaneHeader>
 
-        <SplitView DisplayMode="Inline" IsPaneOpen="True">
-            <SplitView.Pane>
-                <ListView x:Name="ArticleList" ItemsSource="{x:Bind FeedItemListVM.FeedItems, Mode=OneWay}" Grid.Column="0">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="5" Orientation="Vertical">
-                                <TextBlock TextWrapping="Wrap" MaxLines="2" TextTrimming="WordEllipsis" FontWeight="Bold" Text="{Binding Title}"></TextBlock>
-                                <TextBlock TextWrapping="Wrap" MaxLines="2" TextTrimming="WordEllipsis" Text="{Binding Description, Converter={StaticResource HtmlToTextConverter}}"></TextBlock>
-                                <TextBlock MaxLines="1" FontWeight="Bold" FontSize="14" TextAlignment="End" Text="{Binding PublishingDate}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </SplitView.Pane>
-            <SplitView.Content>
-                <local:RssWebview x:Name="LocalRssWebview"/>
-            </SplitView.Content>
-        </SplitView>
-    </NavigationView>
+            <SplitView DisplayMode="Inline" IsPaneOpen="True">
+                <SplitView.Pane>
+                    <ListView x:Name="ArticleList" ItemsSource="{x:Bind FeedItemListVM.FeedItems, Mode=OneWay}" Grid.Column="0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <FontIcon FontSize="13" VerticalAlignment="Center" FontFamily="Segoe Fluent Icons" Visibility="{Binding IsRead, Converter={StaticResource BooleanToVisibilityInverter}}" Foreground="{ThemeResource SystemAccentColor}" Glyph="" />
+                                        <FontIcon FontSize="13" VerticalAlignment="Center" FontFamily="Segoe Fluent Icons" Glyph="" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="1" Margin="5" Orientation="Vertical">
+                                        <TextBlock TextWrapping="Wrap" MaxLines="2" TextTrimming="WordEllipsis" FontWeight="Bold" Text="{Binding Title}"></TextBlock>
+                                        <TextBlock TextWrapping="Wrap" MaxLines="2" TextTrimming="WordEllipsis" Text="{Binding Converter={StaticResource HtmlToTextConverter}}"></TextBlock>
+                                        <TextBlock MaxLines="1" FontWeight="Bold" FontSize="12" TextAlignment="End" Text="{Binding PublishingDate}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </SplitView.Pane>
+                <SplitView.Content>
+                    <local:RssWebview x:Name="LocalRssWebview"/>
+                </SplitView.Content>
+            </SplitView>
+        </NavigationView>
+    </Grid>
 </Window>

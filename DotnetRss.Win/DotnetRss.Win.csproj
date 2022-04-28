@@ -13,6 +13,13 @@
 		<WindowsPackageType>None</WindowsPackageType>
 		<WarningsAsErrors>nullable</WarningsAsErrors>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Content Remove="Assets\favicon.ico" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Assets\favicon.ico" />
+	  <None Remove="Assets\Images\dotnet_bot.png" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<Content Include="Assets\SplashScreen.scale-200.png" />
