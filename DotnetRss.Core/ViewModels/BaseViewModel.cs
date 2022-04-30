@@ -149,6 +149,20 @@ namespace DotnetRss.Core.ViewModels
             this.OnFeedItemUpdated?.Invoke(this, new FeedItemUpdatedEventArgs(feedItem, item));
         }
 
+        internal Task SetIsFavoriteFeedItemAsync(FeedItem item)
+        {
+            item.IsFavorite = !item.IsFavorite;
+            this.Context.AddOrUpdateFeedItem(item);
+            return Task.CompletedTask;
+        }
+
+        internal Task SetIsReadFeedItemAsync(FeedItem item)
+        {
+            item.IsRead = !item.IsRead;
+            this.Context.AddOrUpdateFeedItem(item);
+            return Task.CompletedTask;
+        }
+
 #pragma warning disable SA1600 // Elements should be documented
         protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action? onChanged = null)
 #pragma warning restore SA1600 // Elements should be documented
@@ -161,6 +175,7 @@ namespace DotnetRss.Core.ViewModels
             backingStore = value;
             onChanged?.Invoke();
             this.OnPropertyChanged(propertyName);
+            this.RaiseCanExecuteChanged();
             return true;
         }
 

@@ -1,4 +1,4 @@
-﻿// <copyright file="BooleanToVisibilityInverter.cs" company="Drastic Actions">
+﻿// <copyright file="NullToVisibilityConverter.cs" company="Drastic Actions">
 // Copyright (c) Drastic Actions. All rights reserved.
 // </copyright>
 
@@ -7,17 +7,12 @@ using Microsoft.UI.Xaml.Data;
 
 namespace DotnetRss.Win
 {
-    public class BooleanToVisibilityInverter : IValueConverter
+    public class NullToVisibilityConverter : IValueConverter
     {
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is not bool realValue)
-            {
-                return Visibility.Collapsed;
-            }
-
-            return realValue ? Visibility.Collapsed : Visibility.Visible;
+            return value is null ? Visibility.Collapsed : Visibility.Visible;
         }
 
         /// <inheritdoc/>

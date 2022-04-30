@@ -13,6 +13,7 @@ namespace DotnetRss.Core
     public class FeedItem : INotifyPropertyChanged
     {
         private bool isRead;
+        private bool isFavorite;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FeedItem"/> class.
@@ -123,7 +124,11 @@ namespace DotnetRss.Core
         /// <summary>
         /// Gets or sets a value indicating whether the feed is favorited.
         /// </summary>
-        public bool IsFavorite { get; set; }
+        public bool IsFavorite
+        {
+            get { return this.isFavorite; }
+            set { this.SetProperty(ref this.isFavorite, value); }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether the feed item has been read.

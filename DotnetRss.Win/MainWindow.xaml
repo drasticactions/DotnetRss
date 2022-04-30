@@ -75,7 +75,35 @@
                     </Grid>
                 </SplitView.Pane>
                 <SplitView.Content>
-                    <local:RssWebview Grid.Row="1" x:Name="LocalRssWebview"/>
+                    <Grid DataContext="{x:Bind FeedArticleVM}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Visibility="{Binding FeedItem, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}" Margin="20,15,0,20" Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <Button Command="{x:Bind FeedArticleVM.SetIsReadFeedItem, Mode=OneWay}" CommandParameter="{x:Bind FeedArticleVM.FeedItem, Mode=OneWay}" Margin="0,0,20,0">
+                                    <Grid>
+                                        <FontIcon FontSize="13" VerticalAlignment="Center" FontFamily="Segoe Fluent Icons" Visibility="{Binding FeedItem.IsRead, Converter={StaticResource BooleanToVisibilityInverter}}" Foreground="{ThemeResource SystemAccentColor}" Glyph="" />
+                                        <FontIcon FontSize="13" VerticalAlignment="Center" FontFamily="Segoe Fluent Icons" Glyph="" />
+                                    </Grid>
+                                </Button>
+                                <Button Command="{x:Bind FeedArticleVM.SetIsFavoriteFeedItem, Mode=OneWay}" CommandParameter="{x:Bind FeedArticleVM.FeedItem, Mode=OneWay}" Margin="0,0,20,0">
+                                    <Grid>
+                                        <FontIcon VerticalAlignment="Center" FontFamily="Segoe Fluent Icons"  Visibility="{Binding FeedItem.IsFavorite, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{ThemeResource SystemAccentColor}" Glyph="&#xE735;" />
+                                        <FontIcon VerticalAlignment="Center" FontFamily="Segoe Fluent Icons" Glyph="&#xE734;" />
+                                    </Grid>
+                                </Button>
+                                <Button Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Segoe Fluent Icons" Content="&#xEB41;" />
+                                <Button Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Segoe Fluent Icons" Content="&#xE72D;" />
+                            </StackPanel>
+                        </Grid>
+                        <local:RssWebview Grid.Row="1" x:Name="LocalRssWebview"/>
+                    </Grid>
                 </SplitView.Content>
             </SplitView>
         </NavigationView>

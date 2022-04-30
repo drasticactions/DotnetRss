@@ -27,6 +27,14 @@ namespace DotnetRss.Core.ViewModels
             this.feedItem = item;
             this.webview = webview;
             this.html = string.Empty;
+            this.SetIsFavoriteFeedItem = new AsyncCommand<FeedItem>(
+            async (item) => await this.SetIsFavoriteFeedItemAsync(item),
+            (FeedItem item) => item is not null,
+            this.ErrorHandler);
+            this.SetIsReadFeedItem = new AsyncCommand<FeedItem>(
+            async (item) => await this.SetIsReadFeedItemAsync(item),
+            (FeedItem item) => item is not null,
+            this.ErrorHandler);
         }
 
         /// <summary>
@@ -37,6 +45,16 @@ namespace DotnetRss.Core.ViewModels
             get => this.html;
             set => this.SetProperty(ref this.html, value);
         }
+
+        /// <summary>
+        /// Gets the SetIsFavoriteFeedItem.
+        /// </summary>
+        public AsyncCommand<FeedItem> SetIsFavoriteFeedItem { get; private set; }
+
+        /// <summary>
+        /// Gets the SetIsReadFeedItem.
+        /// </summary>
+        public AsyncCommand<FeedItem> SetIsReadFeedItem { get; private set; }
 
         /// <summary>
         /// Gets or sets the Feed Item.
@@ -65,6 +83,14 @@ namespace DotnetRss.Core.ViewModels
             await this.RenderHtmlAsync();
             this.FeedItem.IsRead = true;
             this.Context.AddOrUpdateFeedItem(this.FeedItem);
+        }
+
+        /// <inheritdoc/>
+        public override void RaiseCanExecuteChanged()
+        {
+            base.RaiseCanExecuteChanged();
+            this.SetIsFavoriteFeedItem.RaiseCanExecuteChanged();
+            this.SetIsReadFeedItem.RaiseCanExecuteChanged();
         }
 
         private async Task RenderHtmlAsync()

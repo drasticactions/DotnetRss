@@ -13,6 +13,7 @@
             <local:HtmlToTextConverter x:Key="HtmlToTextConverter"/>
             <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <local:BooleanToVisibilityInverter x:Key="BooleanToVisibilityInverter"/>
+            <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
