@@ -34,6 +34,7 @@ namespace DotnetRss.Win
                 .AddSingleton<IErrorHandlerService, LoggerErrorHandlerService>()
                 .AddSingleton<ITemplateService, HandlebarsTemplateService>()
                 .AddSingleton<IRssService, FeedReaderService>()
+                .AddSingleton<IPlatformService, WindowsPlatformService>()
                 .AddTransient<RssFeedArticleViewModel>()
                 .AddTransient<RssFeedItemListViewModel>()
                 .AddTransient<RssFeedListViewModel>()

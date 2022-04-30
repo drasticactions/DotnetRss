@@ -98,8 +98,10 @@
                                         <FontIcon VerticalAlignment="Center" FontFamily="Segoe Fluent Icons" Glyph="&#xE734;" />
                                     </Grid>
                                 </Button>
-                                <Button Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Segoe Fluent Icons" Content="&#xEB41;" />
-                                <Button Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Segoe Fluent Icons" Content="&#xE72D;" />
+                                <!--Browser-->
+                                <Button  Command="{x:Bind FeedArticleVM.OpenBrowserCommand, Mode=OneWay}" CommandParameter="{x:Bind FeedArticleVM.FeedItem, Mode=OneWay}" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Segoe Fluent Icons" Content="&#xEB41;" />
+                                <!--Share-->
+                                <Button Command="{x:Bind FeedArticleVM.ShareLinkCommand, Mode=OneWay}" CommandParameter="{x:Bind FeedArticleVM.FeedItem, Mode=OneWay}" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Segoe Fluent Icons" Content="&#xE72D;" />
                             </StackPanel>
                         </Grid>
                         <local:RssWebview Grid.Row="1" x:Name="LocalRssWebview"/>

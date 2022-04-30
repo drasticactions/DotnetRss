@@ -35,6 +35,14 @@ namespace DotnetRss.Core.ViewModels
             async (item) => await this.SetIsReadFeedItemAsync(item),
             (FeedItem item) => item is not null,
             this.ErrorHandler);
+            this.ShareLinkCommand = new AsyncCommand<FeedItem>(
+            async (item) => await this.ShareLinkAsync(item),
+            (FeedItem item) => item is not null && !this.IsBusy,
+            this.ErrorHandler);
+            this.OpenBrowserCommand = new AsyncCommand<FeedItem>(
+            async (item) => await this.OpenBrowserAsync(item),
+            (FeedItem item) => item is not null && !this.IsBusy,
+            this.ErrorHandler);
         }
 
         /// <summary>
@@ -57,6 +65,16 @@ namespace DotnetRss.Core.ViewModels
         public AsyncCommand<FeedItem> SetIsReadFeedItem { get; private set; }
 
         /// <summary>
+        /// Gets the ShareLinkCommand.
+        /// </summary>
+        public AsyncCommand<FeedItem> ShareLinkCommand { get; private set; }
+
+        /// <summary>
+        /// Gets the ShareLinkCommand.
+        /// </summary>
+        public AsyncCommand<FeedItem> OpenBrowserCommand { get; private set; }
+
+        /// <summary>
         /// Gets or sets the Feed Item.
         /// </summary>
         public FeedItem? FeedItem
@@ -77,6 +95,7 @@ namespace DotnetRss.Core.ViewModels
             {
                 return;
             }
+
             this.feedListItem = feedListItem;
             this.FeedItem = item;
             this.Title = this.FeedItem.Title ?? string.Empty;
@@ -91,6 +110,8 @@ namespace DotnetRss.Core.ViewModels
             base.RaiseCanExecuteChanged();
             this.SetIsFavoriteFeedItem.RaiseCanExecuteChanged();
             this.SetIsReadFeedItem.RaiseCanExecuteChanged();
+            this.OpenBrowserCommand.RaiseCanExecuteChanged();
+            this.ShareLinkCommand.RaiseCanExecuteChanged();
         }
 
         private async Task RenderHtmlAsync()

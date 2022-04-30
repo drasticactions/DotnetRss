@@ -29,6 +29,7 @@ namespace DotnetRss.Core.ViewModels
             this.ErrorHandler = services.GetService(typeof(IErrorHandlerService)) as IErrorHandlerService ?? throw new NullReferenceException(nameof(IErrorHandlerService));
             this.Context = services.GetService(typeof(IDatabaseContext)) as IDatabaseContext ?? throw new NullReferenceException(nameof(IDatabaseContext));
             this.Rss = services.GetService(typeof(IRssService)) as IRssService ?? throw new NullReferenceException(nameof(IRssService));
+            this.Platform = services.GetService(typeof(IPlatformService)) as IPlatformService ?? throw new NullReferenceException(nameof(IPlatformService));
         }
 
         /// <inheritdoc/>
@@ -82,6 +83,11 @@ namespace DotnetRss.Core.ViewModels
         /// Gets the Dispatcher.
         /// </summary>
         internal IAppDispatcher Dispatcher { get; }
+
+        /// <summary>
+        /// Gets the Platform services.
+        /// </summary>
+        internal IPlatformService Platform { get; }
 
         /// <summary>
         /// Gets the database context.
@@ -161,6 +167,26 @@ namespace DotnetRss.Core.ViewModels
             item.IsRead = !item.IsRead;
             this.Context.AddOrUpdateFeedItem(item);
             return Task.CompletedTask;
+        }
+
+        internal Task ShareLinkAsync(FeedItem item)
+        {
+            if (item.Link is null)
+            {
+                return Task.CompletedTask;
+            }
+
+            return this.Platform.ShareUrlAsync(item.Link.ToString());
+        }
+
+        internal Task OpenBrowserAsync(FeedItem item)
+        {
+            if (item.Link is null)
+            {
+                return Task.CompletedTask;
+            }
+
+            return this.Platform.OpenBrowserAsync(item.Link.ToString());
         }
 
 #pragma warning disable SA1600 // Elements should be documented
