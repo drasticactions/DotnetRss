@@ -20,7 +20,7 @@ namespace DotnetRss.Core.ViewModels
         public RssFeedItemListViewModel(IServiceProvider services, FeedListItem? item = null)
             : base(services)
         {
-            this.feedListItem = item;
+            this.FeedListItem = item;
             this.FeedItems = new ObservableCollection<FeedItem>();
             this.GetCachedFeedItemsCommand = new AsyncCommand<FeedListItem>(
             async (item) => await this.GetCachedFeedItems(item),
@@ -44,6 +44,15 @@ namespace DotnetRss.Core.ViewModels
         public ObservableCollection<FeedItem> FeedItems { get; }
 
         /// <summary>
+        /// Gets or sets the Feed List Item.
+        /// </summary>
+        public FeedListItem? FeedListItem
+        {
+            get { return this.feedListItem; }
+            set { this.SetProperty(ref this.feedListItem, value); }
+        }
+
+        /// <summary>
         /// Gets the UpdateFeedListItem.
         /// </summary>
         public AsyncCommand<FeedListItem> GetCachedFeedItemsCommand { get; private set; }
@@ -63,12 +72,13 @@ namespace DotnetRss.Core.ViewModels
             }
         }
 
-        private async Task GetCachedFeedItems(FeedListItem item!!)
+        private async Task GetCachedFeedItems(FeedListItem item)
         {
-            this.feedListItem = item;
+            ArgumentNullException.ThrowIfNull(item, nameof(item));
+            this.FeedListItem = item;
             this.Title = item.Name ?? string.Empty;
             this.FeedItems.Clear();
-            var feedItems = this.Context.GetFeedItems(this.feedListItem).OrderByDescending(n => n.PublishingDate).ToList();
+            var feedItems = this.Context.GetFeedItems(this.FeedListItem).OrderByDescending(n => n.PublishingDate).ToList();
             if (feedItems.Any())
             {
                 foreach (var feedItem in feedItems)
@@ -81,14 +91,14 @@ namespace DotnetRss.Core.ViewModels
                 await this.AddOrUpdateNewFeedListItemAsync(item.Uri?.ToString() ?? throw new ArgumentNullException(nameof(item.Uri)));
             }
 
-            this.OnPropertyChanged(nameof(FeedItems));
+            this.OnPropertyChanged(nameof(this.FeedItems));
         }
 
         private void RssFeedItemListViewModel_OnFeedItemUpdated(object? sender, FeedItemUpdatedEventArgs e)
         {
-            if (this.feedListItem?.Id != e.FeedListItem.Id)
+            if (this.FeedListItem?.Id != e.FeedListItem.Id)
             {
-                this.feedListItem = e.FeedListItem;
+                this.FeedListItem = e.FeedListItem;
                 this.FeedItems.Clear();
             }
 

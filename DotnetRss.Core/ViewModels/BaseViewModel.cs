@@ -20,8 +20,9 @@ namespace DotnetRss.Core.ViewModels
         /// Initializes a new instance of the <see cref="BaseViewModel"/> class.
         /// </summary>
         /// <param name="services"><see cref="IServiceProvider"/>.</param>
-        public BaseViewModel(IServiceProvider services!!)
+        public BaseViewModel(IServiceProvider services)
         {
+            ArgumentNullException.ThrowIfNull(services, nameof(services));
             this.Services = services;
             this.Templates = services.GetService(typeof(ITemplateService)) as ITemplateService ?? throw new NullReferenceException(nameof(ITemplateService));
             this.Dispatcher = services.GetService(typeof(IAppDispatcher)) as IAppDispatcher ?? throw new NullReferenceException(nameof(IAppDispatcher));
@@ -130,8 +131,9 @@ namespace DotnetRss.Core.ViewModels
         /// Call OnFeedListItemUpdated event handler.
         /// </summary>
         /// <param name="item">Feed List Item.</param>
-        internal void SendFeedListUpdateRequest(FeedListItem item!!)
+        internal void SendFeedListUpdateRequest(FeedListItem item)
         {
+            ArgumentNullException.ThrowIfNull(item, nameof(item));
             this.OnFeedListItemUpdated?.Invoke(this, new FeedListItemUpdatedEventArgs(item));
         }
 
@@ -140,8 +142,10 @@ namespace DotnetRss.Core.ViewModels
         /// </summary>
         /// <param name="feedItem">Feed List Item.</param>
         /// <param name="item">Feed Item.</param>
-        internal void SendFeedUpdateRequest(FeedListItem feedItem!!, FeedItem item!!)
+        internal void SendFeedUpdateRequest(FeedListItem feedItem, FeedItem item)
         {
+            ArgumentNullException.ThrowIfNull(feedItem, nameof(feedItem));
+            ArgumentNullException.ThrowIfNull(item, nameof(item));
             this.OnFeedItemUpdated?.Invoke(this, new FeedItemUpdatedEventArgs(feedItem, item));
         }
 

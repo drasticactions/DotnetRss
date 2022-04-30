@@ -2,8 +2,8 @@
 // Copyright (c) Drastic Actions. All rights reserved.
 // </copyright>
 
-using LiteDB;
 using System.Reflection;
+using LiteDB;
 
 namespace DotnetRss.Core
 {
@@ -44,7 +44,7 @@ namespace DotnetRss.Core
         /// <inheritdoc/>
         public bool AddOrUpdateFeedItem(FeedItem item)
         {
-            var existingItem = this.FeedItems.FindOne(n => n.RssId == item.RssId);
+            var existingItem = this.FeedItems.FindOne(n => n.Id == item.Id);
             if (existingItem != null)
             {
                 item.Id = existingItem.Id;

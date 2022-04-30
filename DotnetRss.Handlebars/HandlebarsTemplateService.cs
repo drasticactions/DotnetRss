@@ -23,7 +23,7 @@ namespace DotnetRss.Core
         }
 
         /// <inheritdoc/>
-        public async Task<string> RenderFeedItemAsync(FeedItem item)
+        public async Task<string> RenderFeedItemAsync(FeedListItem feedListItem, FeedItem item)
         {
             if (item.Link is null)
             {
@@ -32,7 +32,7 @@ namespace DotnetRss.Core
 
             SmartReader.Article article = await SmartReader.Reader.ParseArticleAsync(item.Link);
             item.Html = article.Content;
-            return this.feedItemTemplate.Invoke(item);
+            return this.feedItemTemplate.Invoke(new { FeedListItem = feedListItem, FeedItem = item, Image = Convert.ToBase64String(feedListItem.ImageCache ?? new byte[0]) });
         }
 
         private static string GetResourceFileContentAsString(string fileName)

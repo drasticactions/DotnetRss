@@ -30,6 +30,11 @@ namespace DotnetRss.Tests
         [TestMethod]
         public async Task RenderTemplate()
         {
+            var feedListItem = new FeedListItem()
+            {
+                Name = "Testing",
+                Link = "https://testing.com",
+            };
             var feedItem = new FeedItem();
             feedItem.Title = "Test Item";
             feedItem.PublishingDate = DateTime.UtcNow;
@@ -38,7 +43,7 @@ namespace DotnetRss.Tests
             feedItem.Content = @"<b>Test</b>";
             feedItem.Description = "Test Description";
             feedItem.Link = "https://devblogs.microsoft.com/dotnet/dotnet-maui-preview-14/";
-            var html = await this.templates.RenderFeedItemAsync(feedItem);
+            var html = await this.templates.RenderFeedItemAsync(feedListItem, feedItem);
             Assert.IsNotNull(html);
             Assert.IsNotNull(feedItem.Html);
         }

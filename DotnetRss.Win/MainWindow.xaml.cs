@@ -141,7 +141,7 @@ namespace DotnetRss.Win
                 return;
             }
 
-            await this.FeedArticleVM.FeedItemSelectedCommand.ExecuteAsync(item);
+            await this.FeedArticleVM.UpdateFeedItem(this.FeedItemListVM.FeedListItem, item);
         }
 
         private void RefreshFeedButton_Click(object sender, RoutedEventArgs e)

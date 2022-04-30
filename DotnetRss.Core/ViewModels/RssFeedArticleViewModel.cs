@@ -12,6 +12,7 @@ namespace DotnetRss.Core.ViewModels
         private IRssWebview webview;
         private string html;
         private FeedItem? feedItem;
+        private FeedListItem? feedListItem;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RssFeedArticleViewModel"/> class.
@@ -19,16 +20,13 @@ namespace DotnetRss.Core.ViewModels
         /// <param name="webview">Rss Webview.</param>
         /// <param name="services"><see cref="IServiceProvider"/>.</param>
         /// <param name="item">Feed Item.</param>
-        public RssFeedArticleViewModel(IRssWebview webview, IServiceProvider services, FeedItem? item = null)
+        public RssFeedArticleViewModel(IRssWebview webview, IServiceProvider services, FeedListItem? feedListItem = null, FeedItem? item = null)
             : base(services)
         {
+            this.feedListItem = feedListItem;
             this.feedItem = item;
             this.webview = webview;
             this.html = string.Empty;
-            this.FeedItemSelectedCommand = new AsyncCommand<FeedItem>(
-            async (item) => await this.UpdateFeedItem(item),
-            null,
-            this.ErrorHandler);
         }
 
         /// <summary>
@@ -49,24 +47,19 @@ namespace DotnetRss.Core.ViewModels
             set => this.SetProperty(ref this.feedItem, value);
         }
 
-        /// <summary>
-        /// Gets the UpdateFeedListItem.
-        /// </summary>
-        public AsyncCommand<FeedItem> FeedItemSelectedCommand { get; private set; }
-
         public override async Task OnLoad()
         {
             await base.OnLoad();
-            await this.UpdateFeedItem(this.feedItem);
+            await this.UpdateFeedItem(this.feedListItem, this.feedItem);
         }
 
-        private async Task UpdateFeedItem(FeedItem? item)
+        public async Task UpdateFeedItem(FeedListItem? feedListItem, FeedItem? item)
         {
-            if (item is null)
+            if (item is null || feedListItem is null)
             {
                 return;
             }
-
+            this.feedListItem = feedListItem;
             this.FeedItem = item;
             this.Title = this.FeedItem.Title ?? string.Empty;
             await this.RenderHtmlAsync();
@@ -76,12 +69,12 @@ namespace DotnetRss.Core.ViewModels
 
         private async Task RenderHtmlAsync()
         {
-            if (this.feedItem is null)
+            if (this.feedItem is null || this.feedListItem is null)
             {
                 return;
             }
 
-            this.Html = await this.Templates.RenderFeedItemAsync(this.feedItem);
+            this.Html = await this.Templates.RenderFeedItemAsync(this.feedListItem, this.feedItem);
             this.webview.SetSource(this.Html);
         }
     }

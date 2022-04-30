@@ -16,8 +16,9 @@ namespace DotnetRss.Core
 
         public object? Arguments { get; }
 
-        public NavigationEventArgs(Type type!!, object? arguments)
+        public NavigationEventArgs(Type type, object? arguments)
         {
+            ArgumentNullException.ThrowIfNull(type, nameof(type));
             this.Type = type;
             this.Arguments = arguments;
         }

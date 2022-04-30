@@ -2,19 +2,27 @@
 // Copyright (c) Drastic Actions. All rights reserved.
 // </copyright>
 
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
 namespace DotnetRss.Core
 {
     /// <summary>
     /// Feed Item.
     /// </summary>
-    public class FeedItem
+    public class FeedItem : INotifyPropertyChanged
     {
+        private bool isRead;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FeedItem"/> class.
         /// </summary>
         public FeedItem()
         {
         }
+
+        /// <inheritdoc/>
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         /// Gets or sets the id.
@@ -120,6 +128,40 @@ namespace DotnetRss.Core
         /// <summary>
         /// Gets or sets a value indicating whether the feed item has been read.
         /// </summary>
-        public bool IsRead { get; set; }
+        public bool IsRead
+        {
+            get { return this.isRead; }
+            set { this.SetProperty(ref this.isRead, value); }
+        }
+
+#pragma warning disable SA1600 // Elements should be documented
+        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action? onChanged = null)
+#pragma warning restore SA1600 // Elements should be documented
+        {
+            if (EqualityComparer<T>.Default.Equals(backingStore, value))
+            {
+                return false;
+            }
+
+            backingStore = value;
+            onChanged?.Invoke();
+            this.OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        /// <summary>
+        /// On Property Changed.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            var changed = this.PropertyChanged;
+            if (changed == null)
+            {
+                return;
+            }
+
+            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
