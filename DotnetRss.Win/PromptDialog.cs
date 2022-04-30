@@ -11,7 +11,7 @@ namespace DotnetRss.Win
     {
         public PromptDialog()
         {
-            this.Title = "Add Feed";
+            this.Title = DotnetRss.Core.Translations.Common.AddFeedButton;
             this.PrimaryButtonText = "Ok";
             this.SecondaryButtonText = "Cancel";
 
