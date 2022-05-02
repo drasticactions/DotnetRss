@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetRss.LiteDB", "DotnetR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetRss.Tests", "DotnetRss.Tests\DotnetRss.Tests.csproj", "{743B0303-DBA0-4708-B1FD-BF83B86DAC50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetRss.Win", "DotnetRss.Win\DotnetRss.Win.csproj", "{D2AAF48E-E408-429C-9382-97BF206A19A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetRss.Win", "DotnetRss.Win\DotnetRss.Win.csproj", "{D2AAF48E-E408-429C-9382-97BF206A19A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetRss.Mac", "DotnetRss.Mac\DotnetRss.Mac.csproj", "{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,6 +133,22 @@ Global
 		{D2AAF48E-E408-429C-9382-97BF206A19A6}.Release|x86.ActiveCfg = Release|x86
 		{D2AAF48E-E408-429C-9382-97BF206A19A6}.Release|x86.Build.0 = Release|x86
 		{D2AAF48E-E408-429C-9382-97BF206A19A6}.Release|x86.Deploy.0 = Release|x86
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Debug|arm64.Build.0 = Debug|Any CPU
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Debug|x64.Build.0 = Debug|Any CPU
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Debug|x86.Build.0 = Debug|Any CPU
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Release|arm64.ActiveCfg = Release|Any CPU
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Release|arm64.Build.0 = Release|Any CPU
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Release|x64.ActiveCfg = Release|Any CPU
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Release|x64.Build.0 = Release|Any CPU
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Release|x86.ActiveCfg = Release|Any CPU
+		{BA41EDEF-E353-4354-BFD4-4C2C374B29E1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
