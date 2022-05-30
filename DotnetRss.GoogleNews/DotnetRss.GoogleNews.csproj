@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -10,10 +10,7 @@
 		<AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="AngleSharp" Version="0.16.1" />
-		<PackageReference Include="CodeHollow.FeedReader" Version="1.2.4" />
+	  <ProjectReference Include="..\DotnetRss.Core\DotnetRss.Core.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\DotnetRss.Core\DotnetRss.Core.csproj" />
-	</ItemGroup>
+
 </Project>

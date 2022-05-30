@@ -21,6 +21,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\DotnetRss.Core\DotnetRss.Core.csproj" />
 	  <ProjectReference Include="..\DotnetRss.FeedReader\DotnetRss.FeedReader.csproj" />
+	  <ProjectReference Include="..\DotnetRss.GoogleNews\DotnetRss.GoogleNews.csproj" />
 	  <ProjectReference Include="..\DotnetRss.Handlebars\DotnetRss.Handlebars.csproj" />
 	  <ProjectReference Include="..\DotnetRss.LiteDB\DotnetRss.LiteDB.csproj" />
 	</ItemGroup>
