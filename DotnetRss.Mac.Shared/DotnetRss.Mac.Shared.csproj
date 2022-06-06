@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotnetRss.Core\DotnetRss.Core.csproj" />
+    <ProjectReference Include="..\DotnetRss.FeedReader\DotnetRss.FeedReader.csproj" />
+    <ProjectReference Include="..\DotnetRss.GoogleNews\DotnetRss.GoogleNews.csproj" />
+    <ProjectReference Include="..\DotnetRss.Handlebars\DotnetRss.Handlebars.csproj" />
+    <ProjectReference Include="..\DotnetRss.LiteDB\DotnetRss.LiteDB.csproj" />
+  </ItemGroup>
+
+  	<ItemGroup>
+		<AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+	</ItemGroup>
+</Project>

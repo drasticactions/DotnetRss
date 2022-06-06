@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-maccatalyst</TargetFramework>
+    <RuntimeIdentifier>maccatalyst-x64</RuntimeIdentifier>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>true</ImplicitUsings>
+    <SupportedOSPlatformVersion>14.2</SupportedOSPlatformVersion>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DotnetRss.Core\DotnetRss.Core.csproj" />
+    <ProjectReference Include="..\DotnetRss.FeedReader\DotnetRss.FeedReader.csproj" />
+    <ProjectReference Include="..\DotnetRss.GoogleNews\DotnetRss.GoogleNews.csproj" />
+    <ProjectReference Include="..\DotnetRss.Handlebars\DotnetRss.Handlebars.csproj" />
+    <ProjectReference Include="..\DotnetRss.LiteDB\DotnetRss.LiteDB.csproj" />
+    <ProjectReference Include="..\DotnetRss.Mac.Shared\DotnetRss.Mac.Shared.csproj" />
+  </ItemGroup>
+    <ItemGroup>
+		<AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+	</ItemGroup>
+</Project>
