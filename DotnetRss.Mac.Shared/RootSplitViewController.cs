@@ -11,12 +11,16 @@ namespace DotnetRss.Mac.Shared
         private MasterFeedViewController feedViewController;
 
         public RootSplitViewController()
+            : base(UISplitViewControllerStyle.TripleColumn)
         {
-            this.PreferredDisplayMode = UISplitViewControllerDisplayMode.AllVisible;
+            this.PreferredDisplayMode = UISplitViewControllerDisplayMode.TwoBesideSecondary;
             this.articleViewController = new ArticleViewController();
             this.timelineViewController = new MasterTimelineViewController();
             this.feedViewController = new MasterFeedViewController();
-            this.ViewControllers = new UIViewController[] { new UINavigationController(feedViewController), new UINavigationController(timelineViewController), new UINavigationController(articleViewController) };
+            this.SetViewController(this.articleViewController, UISplitViewControllerColumn.Secondary);
+            this.SetViewController(this.timelineViewController, UISplitViewControllerColumn.Supplementary);
+            this.SetViewController(this.feedViewController, UISplitViewControllerColumn.Primary);
+            // this.ViewControllers = new UIViewController[] { new UINavigationController(feedViewController), new UINavigationController(timelineViewController), new UINavigationController(articleViewController) };
         }
     }
 }
