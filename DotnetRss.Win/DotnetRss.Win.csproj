@@ -40,18 +40,12 @@
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.3">
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.0">
 		</PackageReference>
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.194" />
 		<Manifest Include="$(ApplicationManifest)" />
 	</ItemGroup>
 
-	<!-- Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
-       Tools extension to be activated for this project even if the Windows App SDK Nuget
-       package has not yet been restored -->
-	<ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnablePreviewMsixTooling)'=='true'">
-		<ProjectCapability Include="Msix" />
-	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\DotnetRss.Core\DotnetRss.Core.csproj" />
 	  <ProjectReference Include="..\DotnetRss.FeedReader\DotnetRss.FeedReader.csproj" />
