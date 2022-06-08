@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using DotnetRss.Core.ViewModels;
 
 namespace DotnetRss.Mac.Shared
 {
@@ -27,5 +28,10 @@ namespace DotnetRss.Mac.Shared
             this.TableView.SectionFooterHeight = 28;
             this.TableView.SectionHeaderHeight = 28;
         }
+
+        /// <summary>
+        /// Gets or sets the Feed Item List VM.
+        /// </summary>
+        public RssFeedItemListViewModel? FeedItemListVM { get; set; }
     }
 }

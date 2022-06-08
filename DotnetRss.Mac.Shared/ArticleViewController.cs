@@ -2,39 +2,23 @@
 // Copyright (c) Drastic Actions. All rights reserved.
 // </copyright>
 
+using DotnetRss.Core.ViewModels;
+
 namespace DotnetRss.Mac.Shared
 {
     public class ArticleViewController : UIViewController
     {
-        private UIToolbar toolbar;
         private ArticleSearchBar searchBar;
         private UIBarButtonItem nextArticleBarButtonItem;
         private UIBarButtonItem prevArticleBarButtonItem;
         // private UIBarButtonItem appearanceBarButtonItem;
-        private WebKit.WKWebView webview;
+        private RssWebview webview;
 
         public ArticleViewController()
         {
-            this.webview = new WebKit.WKWebView(this.View?.Frame ?? CGRect.Empty, new WebKit.WKWebViewConfiguration());
+            this.webview = new RssWebview(this.View?.Frame ?? CGRect.Empty, new WebKit.WKWebViewConfiguration());
             this.webview.AutoresizingMask = UIViewAutoresizing.All;
-            this.toolbar = new UIToolbar(new CGRect(0, 0, this.View?.Frame.Width ?? 0, 30));
-            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            if (this.View != null)
-            {
-                var tbConstraints = new[]
-                {
-                  toolbar.LeadingAnchor.ConstraintEqualTo(this.View.SafeAreaLayoutGuide.LeadingAnchor),
-                  toolbar.TrailingAnchor.ConstraintEqualTo(this.View.SafeAreaLayoutGuide.TrailingAnchor),
-                  toolbar.TopAnchor.ConstraintEqualTo(this.View.SafeAreaLayoutGuide.TopAnchor, 0.0f),
-                  toolbar.HeightAnchor.ConstraintEqualTo(toolbar.IntrinsicContentSize.Height)
-                };
-                this.View?.AddSubview(this.toolbar);
-                // this.toolbar.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
-                NSLayoutConstraint.ActivateConstraints(tbConstraints);
-            }
-
-            this.View?.AddSubview(this.webview);
+           // this.View?.AddSubview(this.webview);
 
             this.searchBar = new ArticleSearchBar();
             this.nextArticleBarButtonItem = new UIBarButtonItem();
@@ -49,7 +33,7 @@ namespace DotnetRss.Mac.Shared
             this.nextArticleBarButtonItem.Image = UIImage.GetSystemImage("chevron.down");
             this.nextArticleBarButtonItem.Title = "Next Article";
 
-            this.toolbar.SetItems(new UIBarButtonItem[] { this.nextArticleBarButtonItem, this.prevArticleBarButtonItem }, false);
+            this.NavigationItem.SetRightBarButtonItems(new UIBarButtonItem[] { this.prevArticleBarButtonItem, this.nextArticleBarButtonItem }, false);
 
             if (this.View is not null)
             {
@@ -58,7 +42,7 @@ namespace DotnetRss.Mac.Shared
             }
 
             this.NavigationItem.Title = "Article";
-
+            this.NavigationItem.HidesSearchBarWhenScrolling = false;
             this.searchBar.BackgroundColor = UIColor.White;
             this.searchBar.Hidden = true;
             this.searchBar.TranslatesAutoresizingMaskIntoConstraints = true;
@@ -78,7 +62,14 @@ namespace DotnetRss.Mac.Shared
                 }
             }
 
-            this.webview.LoadHtmlString(new NSString("<h2>test</h2>"), null);
+            // this.webview.LoadHtmlString(new NSString("<h2>test</h2>"), null);
         }
+
+        /// <summary>
+        /// Gets or sets the Feed Article FM.
+        /// </summary>
+        public RssFeedArticleViewModel? FeedArticleVM { get; set; }
+
+        internal RssWebview RssWebview => this.webview;
     }
 }

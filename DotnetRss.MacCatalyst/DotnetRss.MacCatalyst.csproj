@@ -9,6 +9,11 @@
     <WarningsAsErrors>nullable</WarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="0.16.1" />
+	<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+	<PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\DotnetRss.Core\DotnetRss.Core.csproj" />
     <ProjectReference Include="..\DotnetRss.FeedReader\DotnetRss.FeedReader.csproj" />
     <ProjectReference Include="..\DotnetRss.GoogleNews\DotnetRss.GoogleNews.csproj" />
