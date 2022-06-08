@@ -95,6 +95,10 @@ namespace DotnetRss.Core
         private void OnConfiguring(string databasePath = "")
         {
             databasePath = string.IsNullOrEmpty(databasePath) ? this.GetLocalPath() : databasePath;
+            if (!Directory.Exists(databasePath))
+            {
+                Directory.CreateDirectory(databasePath);
+            }
             this.databasePath = Path.Combine(databasePath, DatabaseName);
             this.db = new LiteDatabase(this.databasePath);
         }

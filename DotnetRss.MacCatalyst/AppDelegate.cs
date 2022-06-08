@@ -24,7 +24,7 @@ public class AppDelegate : UIApplicationDelegate
         Ioc.Default.ConfigureServices(
                 new ServiceCollection()
                 .AddSingleton<IAppDispatcher>(new AppDispatcher())
-                .AddSingleton<IDatabaseContext, LiteDBDatabaseContext>()
+                .AddSingleton<IDatabaseContext>(new LiteDBDatabaseContext(System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "DotnetRss")))
                 .AddSingleton<IErrorHandlerService, LoggerErrorHandlerService>()
                 .AddSingleton<ITemplateService, HandlebarsTemplateService>()
                 .AddSingleton<IRssService, FeedReaderService>()

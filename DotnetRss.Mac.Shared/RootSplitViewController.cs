@@ -18,18 +18,19 @@ namespace DotnetRss.Mac.Shared
             : base(UISplitViewControllerStyle.TripleColumn)
         {
             this.services = services;
+            this.FeedListVM = services.ResolveWith<RssFeedListViewModel>();
             this.PreferredDisplayMode = UISplitViewControllerDisplayMode.TwoBesideSecondary;
             this.articleViewController = new ArticleViewController();
             this.timelineViewController = new MasterTimelineViewController();
-            this.feedViewController = new MasterFeedViewController();
-
-            this.feedViewController.FeedListVM = this.FeedListVM = services.ResolveWith<RssFeedListViewModel>();
+            this.feedViewController = new MasterFeedViewController(this.FeedListVM);
             this.timelineViewController.FeedItemListVM = this.FeedItemListVM = services.ResolveWith<RssFeedItemListViewModel>();
             this.articleViewController.FeedArticleVM = this.FeedArticleVM = services.ResolveWith<RssFeedArticleViewModel>(this.articleViewController.RssWebview);
 
             this.SetViewController(this.articleViewController, UISplitViewControllerColumn.Secondary);
             this.SetViewController(this.timelineViewController, UISplitViewControllerColumn.Supplementary);
             this.SetViewController(this.feedViewController, UISplitViewControllerColumn.Primary);
+
+            this.PrimaryBackgroundStyle = UISplitViewControllerBackgroundStyle.Sidebar;
         }
 
         /// <summary>
