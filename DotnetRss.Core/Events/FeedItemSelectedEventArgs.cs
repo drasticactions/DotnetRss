@@ -7,12 +7,16 @@ namespace DotnetRss.Core
     public class FeedItemSelectedEventArgs : EventArgs
     {
         private readonly FeedItem feedItem;
+        private readonly FeedListItem? feedListItem;
 
-        public FeedItemSelectedEventArgs(FeedItem item)
+        public FeedItemSelectedEventArgs(FeedListItem? feedListItem, FeedItem item)
         {
             this.feedItem = item;
+            this.feedListItem = feedListItem;
         }
 
         public FeedItem FeedItem => this.feedItem;
+
+        public FeedListItem? FeedListItem => this.feedListItem;
     }
 }

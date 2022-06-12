@@ -53,6 +53,8 @@ namespace DotnetRss.Mac.Shared
                 }
             }));
 
+            this.addNewFeedController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
+
             this.filterButton = new UIBarButtonItem();
             this.newItemButton = new UIBarButtonItem();
             this.refreshButton = new UIBarButtonItem();
@@ -88,6 +90,22 @@ namespace DotnetRss.Mac.Shared
             NSLayoutConstraint.ActivateConstraints(constraints.ToArray());
 
             this.ConfigureDataSource();
+        }
+
+        /// <summary>
+        /// Item Selected.
+        /// </summary>
+        /// <param name="collectionView">Collection View.</param>
+        /// <param name="indexPath">Index Path.</param>
+        [Export("collectionView:didSelectItemAtIndexPath:")]
+        protected async void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
+        {
+            // TODO: Fix
+            var sidebarItem = this.FeedListVM.FeedListItems.FirstOrDefault();
+            if (sidebarItem is not null)
+            {
+                await this.FeedListVM.FeedListItemSelectedCommand.ExecuteAsync(sidebarItem);
+            }
         }
 
         private async void RefreshButton_Clicked(object? sender, EventArgs e)

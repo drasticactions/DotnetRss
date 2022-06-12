@@ -18,7 +18,9 @@ namespace DotnetRss.Mac.Shared
         {
             this.webview = new RssWebview(this.View?.Frame ?? CGRect.Empty, new WebKit.WKWebViewConfiguration());
             this.webview.AutoresizingMask = UIViewAutoresizing.All;
-           // this.View?.AddSubview(this.webview);
+            this.webview.TranslatesAutoresizingMaskIntoConstraints = true;
+
+            this.View?.AddSubview(this.webview);
 
             this.searchBar = new ArticleSearchBar();
             this.nextArticleBarButtonItem = new UIBarButtonItem();

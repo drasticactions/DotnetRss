@@ -3,6 +3,8 @@
 // </copyright>
 
 using System;
+using System.Runtime.InteropServices;
+using DotnetRss.Core;
 using ObjCRuntime;
 
 namespace DotnetRss.Mac.Shared
@@ -14,6 +16,15 @@ namespace DotnetRss.Mac.Shared
         private MasterUnreadIndicatorView unreadIndicatorView = new MasterUnreadIndicatorView(CGRect.Empty);
         private UILabel dateView = GenerateSingleLineUILabel();
         private UILabel feedNameView = GenerateSingleLineUILabel();
+
+        public MasterTimelineTableViewCell(string reuseIdentifier)
+            : base(UITableViewCellStyle.Default, reuseIdentifier)
+        {
+            //this.titleView.Text = item.Title;
+            //this.summaryView.Text = item.Description;
+            //this.dateView.Text = item.PublishingDateString;
+            this.SetupUI();
+        }
 
         public MasterTimelineTableViewCell()
         {
@@ -50,28 +61,34 @@ namespace DotnetRss.Mac.Shared
             this.SetupUI();
         }
 
+        public void UpdateCell(FeedItem item)
+        {
+            this.titleView.Text = item.Title;
+            this.summaryView.Text = item.Description;
+            this.dateView.Text = item.PublishingDateString;
+        }
+
         private void SetupUI()
         {
             this.ClipsToBounds = true;
-            //this.Frame = new CGRect(0, 44.5, 414, 208);
-            //this.PreservesSuperviewLayoutMargins = true;
-            //this.ContentView.ClipsToBounds = true;
-            //this.ContentView.ContentMode = UIViewContentMode.Center;
-            //this.ContentView.InsetsLayoutMarginsFromSafeArea = false;
-            //this.ContentView.MultipleTouchEnabled = true;
-            //this.ContentView.PreservesSuperviewLayoutMargins = true;
+            this.Frame = new CGRect(0, 44.5, 414, 208);
+            this.PreservesSuperviewLayoutMargins = true;
+            this.ContentView.ClipsToBounds = true;
+            this.ContentView.ContentMode = UIViewContentMode.Center;
+            this.ContentView.InsetsLayoutMarginsFromSafeArea = false;
+            this.ContentView.MultipleTouchEnabled = true;
+            this.ContentView.PreservesSuperviewLayoutMargins = true;
 
             this.AddSubviewAtInit(this.titleView, false);
             this.AddSubviewAtInit(this.summaryView, true);
             this.AddSubviewAtInit(this.unreadIndicatorView, true);
             this.AddSubviewAtInit(this.dateView, false);
             this.AddSubviewAtInit(this.feedNameView, true);
-
         }
 
         private void AddSubviewAtInit(UIView view, bool hidden)
         {
-            this.AddSubview(view);
+            this.ContentView.AddSubview(view);
             view.TranslatesAutoresizingMaskIntoConstraints = false;
             view.Hidden = hidden;
         }
@@ -93,6 +110,17 @@ namespace DotnetRss.Mac.Shared
             label.AllowsDefaultTighteningForTruncation = false;
             label.AdjustsFontForContentSizeCategory = true;
             return label;
+        }
+
+        public override void LayoutSubviews()
+        {
+            base.LayoutSubviews();
+            this.UpdatedLayout(this.Bounds.Width);
+        }
+
+        private void UpdatedLayout(NFloat width)
+        {
+
         }
     }
 }

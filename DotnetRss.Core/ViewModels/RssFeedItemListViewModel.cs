@@ -28,7 +28,7 @@ namespace DotnetRss.Core.ViewModels
             this.ErrorHandler);
             this.OnFeedItemUpdated += this.RssFeedItemListViewModel_OnFeedItemUpdated;
             this.FeedItemSelectedCommand = new AsyncCommand<FeedItem>(
-            async (item) => this.OnFeedItemSelected?.Invoke(this, new FeedItemSelectedEventArgs(item)),
+            async (item) => this.OnFeedItemSelected?.Invoke(this, new FeedItemSelectedEventArgs(this.FeedListItem, item)),
             null,
             this.ErrorHandler);
         }

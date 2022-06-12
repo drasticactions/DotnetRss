@@ -19,11 +19,11 @@ namespace DotnetRss.Mac.Shared
         {
             this.services = services;
             this.FeedListVM = services.ResolveWith<RssFeedListViewModel>();
+            this.FeedItemListVM = services.ResolveWith<RssFeedItemListViewModel>();
             this.PreferredDisplayMode = UISplitViewControllerDisplayMode.TwoBesideSecondary;
             this.articleViewController = new ArticleViewController();
-            this.timelineViewController = new MasterTimelineViewController();
+            this.timelineViewController = new MasterTimelineViewController(this.FeedItemListVM);
             this.feedViewController = new MasterFeedViewController(this.FeedListVM);
-            this.timelineViewController.FeedItemListVM = this.FeedItemListVM = services.ResolveWith<RssFeedItemListViewModel>();
             this.articleViewController.FeedArticleVM = this.FeedArticleVM = services.ResolveWith<RssFeedArticleViewModel>(this.articleViewController.RssWebview);
 
             this.SetViewController(this.articleViewController, UISplitViewControllerColumn.Secondary);
@@ -31,6 +31,25 @@ namespace DotnetRss.Mac.Shared
             this.SetViewController(this.feedViewController, UISplitViewControllerColumn.Primary);
 
             this.PrimaryBackgroundStyle = UISplitViewControllerBackgroundStyle.Sidebar;
+            this.FeedListVM.OnFeedListItemSelected += this.FeedListVM_OnFeedListItemSelected;
+            this.FeedItemListVM.OnFeedItemSelected += FeedItemListVM_OnFeedItemSelected1;
+        }
+
+        private async void FeedItemListVM_OnFeedItemSelected1(object? sender, Core.FeedItemSelectedEventArgs e)
+        {
+            if (e.FeedListItem is not null)
+            {
+                await this.FeedArticleVM.UpdateFeedItem(e.FeedListItem, e.FeedItem);
+            }
+        }
+
+        private async void FeedListVM_OnFeedListItemSelected(object? sender, Core.FeedListItemSelectedEventArgs e)
+        {
+           await this.FeedItemListVM.GetCachedFeedItemsCommand.ExecuteAsync(e.FeedListItem);
+        }
+
+        private void FeedItemListVM_OnFeedItemSelected(object? sender, Core.FeedItemSelectedEventArgs e)
+        {
         }
 
         /// <summary>
